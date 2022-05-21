@@ -113,7 +113,10 @@ export const MetaplexMenu = () => {
 export const LogoLink = () => {
   return (
     <Link to={`/`}>
-      <img src={'/metaplex-logo.svg'} />
+      <img
+        src="https://cryptomemories.io/images/logo.png"
+        alt="CryptoMemories"
+      />
     </Link>
   );
 };
