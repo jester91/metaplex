@@ -36,6 +36,7 @@ export const HowToBuyModal: React.FC<HowToBuyModalProps> = ({
         },
       ]}
       onClick={onClick}
+      
     />
   );
 };

@@ -69,7 +69,6 @@ interface ModalProps {
 }
 
 export const InstructionsModal: React.FC<ModalProps> = ({
-  buttonClassName,
   buttonText,
   modalTitle,
   cardProps,
@@ -92,39 +91,11 @@ export const InstructionsModal: React.FC<ModalProps> = ({
 
   return (
     <>
-      <Button className={buttonClassName} onClick={showModal}>
+      <Button>
+      <a href='https://cryptomemories.gitbook.io/cryptomemories-whitepaper-en/own-a-cryptomemories/how-to-buy' target='_blank'>
         {buttonText}
+        </a>
       </Button>
-      <Modal
-        title={modalTitle}
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        className={'modal-box instructions-modal'}
-        closeIcon={<img src={'/modals/close.svg'} />}
-      >
-        <ModalContent>
-          <ContentCard
-            title={cardProps[0].title}
-            description={cardProps[0].description}
-            imgSrc={cardProps[0].imgSrc}
-            endElement={cardProps[0].endElement}
-          />
-          <ContentCard
-            title={cardProps[1].title}
-            description={cardProps[1].description}
-            imgSrc={cardProps[1].imgSrc}
-            endElement={cardProps[1].endElement}
-          />
-          <ContentCard
-            title={cardProps[2].title}
-            description={cardProps[2].description}
-            imgSrc={cardProps[2].imgSrc}
-            endElement={cardProps[2].endElement}
-          />
-        </ModalContent>
-      </Modal>
     </>
   );
 };
