@@ -453,7 +453,7 @@ const UploadStep = (props: {
             <Text type="danger">{coverArtError}</Text>
           ) : (
             <p className="ant-upload-text" style={{ color: '#6d6d6d' }}>
-              Drag and drop, or click to browse
+              Drag and drop, or click to browse,<br/> Please make sure the file is less than 10 MB
             </p>
           )}
         </Dragger>

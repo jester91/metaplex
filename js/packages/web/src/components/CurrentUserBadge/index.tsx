@@ -415,7 +415,8 @@ export const Cog = () => {
         }
       >
         <Button className="wallet-key">
-          <img src="/cog.svg" />
+          {/* <img src="/cog.svg" />*/}
+          <img className="cog" src="https://www.svgrepo.com/show/174697/cogwheel-outline.svg" />
         </Button>
       </Popover>
     </div>

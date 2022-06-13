@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, InputNumber, Spin } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import RefreshIcon from '@material-ui/icons/Refresh';
 
 import {
   useConnection,
@@ -514,9 +513,9 @@ export const AuctionCard = ({
     return <></>;
   }
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
+  const refreshPage = ()=>{
+    window.location.reload();
+ }
 
   return (
     <div className="auction-container" style={style}>
@@ -528,7 +527,7 @@ export const AuctionCard = ({
               <AuctionCountdown auctionView={auctionView} labels={false} />
             </div>
             <div>
-             <RefreshIcon onClick={refreshPage}>Refresh</RefreshIcon>
+             <button className="refreshbutton" style={style} onClick={refreshPage}>Refresh</button>
             </div>
           </>
         )}

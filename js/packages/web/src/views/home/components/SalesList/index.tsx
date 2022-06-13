@@ -43,7 +43,7 @@ export const SalesListView = (props: { collectionMintFilter?: string }) => {
     <>
       {!props.collectionMintFilter && (
         <Banner
-          src="https://cryptomemories.io/images/hero-min-v2.webp"
+          src="https://ams02pap001files.storage.live.com/y4m_9fv1OTpuagKg4HSI7twgxynBCXtfYb_vOHb1tDC8STHhTSKcY8Fx0qC0q5wXrUH74elRNNAj1XyzXtsfxTQ3SC1wsBnCfWLva87L2i9P6DdHVu9kwjg-7_QTYEj1kcGGkE6ainaLnsIybsyV0hB0CYtBOaQB7Tais3AEapaOHQZI8gpIVrOnNi-_SnX8ipzDwy5wnaada87HCgiIRofJQ/hero-medium-min.png?psid=1&width=1056&height=400"
           headingText="OWN A PIECE FROM CRYPTO HISTORY."
           subHeadingText="Buy exclusive CryptoMemories NFTs."
           actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}

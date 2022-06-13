@@ -92,7 +92,7 @@ export const InstructionsModal: React.FC<ModalProps> = ({
   return (
     <>
       <Button>
-      <a href='https://cryptomemories.gitbook.io/cryptomemories-whitepaper-en/own-a-cryptomemories/how-to-buy' target='_blank'>
+      <a href='https://cryptomemories.gitbook.io/cryptomemories-whitepaper-en/own-a-cryptomemories/how-to-buy/test-our-nft-marketplace' target='_blank'>
         {buttonText}
         </a>
       </Button>
