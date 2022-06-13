@@ -1,10 +1,10 @@
 {
-  "name": "Metaplex NFT Marketplace",
-  "short_name": "Metaplex NFT Marketplace",
+  "name": "CryptoMemories NFT Marketplace",
+  "short_name": "CryptoMemories NFT Marketplace",
   "display": "standalone",
   "start_url": "./",
   "theme_color": "#002140",
-  "background_color": "#001529",
+  "background_color": "#0b1f2a",
   "icons": [
     {
       "src": "/favicon-16x16.png",
