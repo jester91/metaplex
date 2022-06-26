@@ -51,6 +51,7 @@ export interface HomeProps {
   txTimeout: number;
   rpcHost: string;
   network: WalletAdapterNetwork;
+  error?: string;
 }
 
 const Home = (props: HomeProps) => {
@@ -62,6 +63,7 @@ const Home = (props: HomeProps) => {
     severity: undefined,
   });
   const [isActive, setIsActive] = useState(false);
+  const [currentShift, setCurrentShift] = useState<number>(0);
   const [endDate, setEndDate] = useState<Date>();
   const [itemsRemaining, setItemsRemaining] = useState<number>();
   const [isWhitelistUser, setIsWhitelistUser] = useState(false);
@@ -96,6 +98,15 @@ const Home = (props: HomeProps) => {
       if (!anchorWallet) {
         return;
       }
+      if (props.error !== undefined) {
+        setAlertState({
+          open: true,
+          message: props.error,
+          severity: 'error',
+          hideDuration: null,
+        });
+        return;
+      }
 
       const connection = new Connection(props.rpcHost, commitment);
 
@@ -106,8 +117,15 @@ const Home = (props: HomeProps) => {
             props.candyMachineId,
             connection,
           );
+          const currentSlot = await connection.getSlot();
+          const blockTime = (await connection.getBlockTime(
+            currentSlot,
+          )) as number;
+          const shift = new Date().getTime() / 1000 - blockTime;
+
           let active =
-            cndy?.state.goLiveDate?.toNumber() < new Date().getTime() / 1000;
+            cndy?.state.goLiveDate?.toNumber() + shift <
+            new Date().getTime() / 1000;
           let presale = false;
 
           // duplication of state to make sure we have the right values!
@@ -120,7 +138,8 @@ const Home = (props: HomeProps) => {
             if (
               cndy.state.whitelistMintSettings.presale &&
               (!cndy.state.goLiveDate ||
-                cndy.state.goLiveDate.toNumber() > new Date().getTime() / 1000)
+                cndy.state.goLiveDate.toNumber() + shift >
+                  new Date().getTime() / 1000)
             ) {
               presale = true;
             }
@@ -199,10 +218,12 @@ const Home = (props: HomeProps) => {
 
           // datetime to stop the mint?
           if (cndy?.state.endSettings?.endSettingType.date) {
-            setEndDate(toDate(cndy.state.endSettings.number));
+            setEndDate(
+              toDate(cndy.state.endSettings.number.add(new anchor.BN(shift))),
+            );
             if (
-              cndy.state.endSettings.number.toNumber() <
-              new Date().getTime() / 1000
+              new Date().getTime() / 1000 >
+              cndy.state.endSettings.number.toNumber() + shift
             ) {
               active = false;
             }
@@ -231,8 +252,9 @@ const Home = (props: HomeProps) => {
           const collectionPDAAccount = await connection.getAccountInfo(
             collectionPDA,
           );
-
           setIsActive((cndy.state.isActive = active));
+          setCurrentShift(shift);
+
           setIsPresale((cndy.state.isPresale = presale));
           setCandyMachine(cndy);
 
@@ -286,7 +308,7 @@ const Home = (props: HomeProps) => {
         });
       }
     },
-    [anchorWallet, props.candyMachineId, props.rpcHost],
+    [anchorWallet, props.candyMachineId, props.error, props.rpcHost],
   );
 
   const onMint = async (
@@ -435,7 +457,7 @@ const Home = (props: HomeProps) => {
     }
   };
 
-  const toggleMintButton = () => {
+  const toggleMintButton = (currentShift: number) => {
     let active = !isActive || isPresale;
 
     if (active) {
@@ -446,11 +468,15 @@ const Home = (props: HomeProps) => {
         active = false;
       }
     }
-
+    console.log(
+      candyMachine!.state.goLiveDate.toNumber() + currentShift <=
+        new Date().getTime() / 1000,
+    );
     if (
       isPresale &&
       candyMachine!.state.goLiveDate &&
-      candyMachine!.state.goLiveDate.toNumber() <= new Date().getTime() / 1000
+      candyMachine!.state.goLiveDate.toNumber() + currentShift <=
+        new Date().getTime() / 1000
     ) {
       setIsPresale((candyMachine!.state.isPresale = false));
     }
@@ -535,10 +561,10 @@ const Home = (props: HomeProps) => {
                       <>
                         <MintCountdown
                           key="endSettings"
-                          date={getCountdownDate(candyMachine)}
+                          date={getCountdownDate(candyMachine, currentShift)}
                           style={{ justifyContent: 'flex-end' }}
                           status="COMPLETED"
-                          onComplete={toggleMintButton}
+                          onComplete={() => toggleMintButton(currentShift)}
                         />
                         <Typography
                           variant="caption"
@@ -553,7 +579,7 @@ const Home = (props: HomeProps) => {
                       <>
                         <MintCountdown
                           key="goLive"
-                          date={getCountdownDate(candyMachine)}
+                          date={getCountdownDate(candyMachine, currentShift)}
                           style={{ justifyContent: 'flex-end' }}
                           status={
                             candyMachine?.state?.isSoldOut ||
@@ -563,11 +589,12 @@ const Home = (props: HomeProps) => {
                               ? 'PRESALE'
                               : 'LIVE'
                           }
-                          onComplete={toggleMintButton}
+                          onComplete={() => toggleMintButton(currentShift)}
                         />
                         {isPresale &&
                           candyMachine.state.goLiveDate &&
-                          candyMachine.state.goLiveDate.toNumber() >
+                          candyMachine.state.goLiveDate.toNumber() +
+                            currentShift >
                             new Date().getTime() / 1000 && (
                             <Typography
                               variant="caption"
@@ -721,6 +748,7 @@ const Home = (props: HomeProps) => {
 
 const getCountdownDate = (
   candyMachine: CandyMachineAccount,
+  currentShift: number,
 ): Date | undefined => {
   if (
     candyMachine.state.isActive &&
@@ -731,7 +759,7 @@ const getCountdownDate = (
 
   return toDate(
     candyMachine.state.goLiveDate
-      ? candyMachine.state.goLiveDate
+      ? new anchor.BN(candyMachine.state.goLiveDate.toNumber() + currentShift)
       : candyMachine.state.isPresale
       ? new anchor.BN(new Date().getTime() / 1000)
       : undefined,
