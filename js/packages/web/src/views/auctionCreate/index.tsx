@@ -904,7 +904,7 @@ const InstantSaleStep = ({
               )}
             </label>
           )}
-          {hasOtherTokens && (
+          
             <label className="action-field">
               <span className="field-title">Auction mint</span>
               <TokenButton
@@ -919,7 +919,7 @@ const InstantSaleStep = ({
                 }}
               />
             </label>
-          )}
+          
           <label className="action-field">
             <span className="field-title">Price</span>
             <span className="field-info">
@@ -1019,7 +1019,7 @@ const CopiesStep = (props: {
           >
             Select NFT
           </ArtSelector>
-          {hasOtherTokens && (
+          
             <label className="action-field">
               <span className="field-title">Auction mint</span>
               <TokenButton
@@ -1034,7 +1034,7 @@ const CopiesStep = (props: {
                 }}
               />
             </label>
-          )}
+          
           {props.attributes.category === AuctionCategory.Limited && (
             <label className="action-field">
               <span className="field-title">

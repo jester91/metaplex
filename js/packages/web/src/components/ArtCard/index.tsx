@@ -126,10 +126,10 @@ export const ArtCard = (props: ArtCardProps) => {
   );
 
   return art.creators?.find(c => !c.verified) ? (
-    /*<Badge.Ribbon text="Unverified">{card}</Badge.Ribbon> 
-    eredeti verified teszteles*/
-    card
+    <Badge.Ribbon text="Unverified">{card}</Badge.Ribbon> 
+    /*eredeti verified teszteles
+    card*/
   ) : (
-    card
+    <Badge.Ribbon text="Verified">{card}</Badge.Ribbon> 
   );
 };
