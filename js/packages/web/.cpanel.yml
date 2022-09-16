@@ -1,4 +1,5 @@
 ---
 deployment:
   tasks:
-    - cross-env ASSET_PREFIX=/metaplex/ yarn build && yarn deploy:gh
+    - export DEPLOYPATH=/home/example/public_html/
+    - /.next -R images $DEPLOYPATH
