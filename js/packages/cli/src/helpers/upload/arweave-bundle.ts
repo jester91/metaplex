@@ -500,8 +500,8 @@ export async function* makeArweaveBundleUploadGenerator(
             'solana',
             walletKeyPair.secretKey,
             {
-              timeout: 60000,
-              providerUrl: rpcUrl ?? 'https://solana-mainnet.g.alchemy.com/v2/Oxpumfavf7cC9FDNUCcQJtk7TlMrN0wP',
+              timeout: 30000,
+              providerUrl: rpcUrl ?? 'https://ssc-dao.genesysgo.net',
             },
           )
         : new Bundlr(

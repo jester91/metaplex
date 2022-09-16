@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - cross-env ASSET_PREFIX=/metaplex/ yarn build && yarn deploy:gh

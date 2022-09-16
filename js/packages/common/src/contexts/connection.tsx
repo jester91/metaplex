@@ -45,7 +45,7 @@ export const ENDPOINTS: Array<Endpoint> = [
   {
     name: 'mainnet-beta',
     label: 'mainnet-beta',
-    url: 'https://solana-mainnet.g.alchemy.com/v2/Oxpumfavf7cC9FDNUCcQJtk7TlMrN0wP',
+    url: 'https://ssc-dao.genesysgo.net',
     chainId: ChainId.MainnetBeta,
   },
   {
@@ -656,7 +656,7 @@ export const getUnixTs = () => {
   return new Date().getTime() / 1000;
 };
 
-const DEFAULT_TIMEOUT = 60000;
+const DEFAULT_TIMEOUT = 1000;
 
 export async function sendSignedTransaction({
   signedTransaction,

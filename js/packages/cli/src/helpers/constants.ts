@@ -100,7 +100,7 @@ export const CONFIG_LINE_SIZE = 4 + 32 + 4 + 200;
 
 export const CACHE_PATH = './.cache';
 
-export const DEFAULT_TIMEOUT = 30000;
+export const DEFAULT_TIMEOUT = 1000;
 
 export const EXTENSION_PNG = '.png';
 export const EXTENSION_JPG = '.jpg';
@@ -121,7 +121,7 @@ type Cluster = {
 export const CLUSTERS: Cluster[] = [
   {
     name: 'mainnet-beta',
-    url: 'https://solana-mainnet.g.alchemy.com/v2/Oxpumfavf7cC9FDNUCcQJtk7TlMrN0wP',
+    url: 'https://ssc-dao.genesysgo.net',
   },
   {
     name: 'testnet',

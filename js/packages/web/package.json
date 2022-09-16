@@ -1,5 +1,6 @@
 {
   "name": "web",
+  "homepage":"https://auction.cryptomemories.io/",
   "version": "0.1.0",
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
@@ -76,7 +77,6 @@
     "type": "git",
     "url": "https://github.com/metaplex-foundation/metaplex"
   },
-  "homepage": ".",
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
